@@ -168,7 +168,7 @@ of the segments covering the pixel. Several examples of the
 ground truth maps are shown in Figure 1(c).
 	    	</p>
 	    	<p style="text-align:center">
-         		<img src="images/SPR/annotation_extended.png" alt="" width="800" height="461" align="bottom" />
+         		<img src="images/SPR/annotation_extended_1.png" alt="" width="800" height="461" align="bottom" />
          	</p>
          	<div class="caption">
             	<p class="caption-content">
@@ -207,24 +207,28 @@ labeled with soft rather than binary annotations.
       <div class="wrap">
          <h2 id="subject">Architecture Overview</h2>
          <p align="justify" style="text-indent:2em"> 
-         	The goal of SPR is that the target image keeps
-the global semantics as much as possible. Technically, we
-need to generate a global importance map assigning higher
-weights to the pixels expressing the global semantics.
+Although the state-of-the-art
+modules are used, semantic components may not be extracted
+well in an image. Thus, we combine all the semantic component
+maps via a classification guided fusion network to generate
+the semantic collage. As object and scene images have
+different properties, the fusion network first classifies
+an image into two types. The semantic component maps are
+then fused by the corresponding sub-network based on the
+specified category. In contrast to existing methods, we exploit
+the semantic collages based on three defined components for
+image retargeting. The generated semantic collage is fed into a
+carrier method to generate the target image.
 		</p>
-		<p align="justify" style="text-indent:2em">
-         	Generating a global importance map is composed of two steps:
-1) decomposing global semantics into several local semantics. 2) fusing 
-the local semantics induced importance maps into a global importance
-map.The two processes are shown in the following two figures.
-         </p>
          <p style="text-align:center">
-         	<img src="images/SPR/framework.png" alt="" width="800" height="282" align="bottom" />
+         	<img src="images/SPR/framework_1.png" alt="" width="800" height="282" align="bottom" />
          </p>
          <div class="caption">
             <p class="caption-content">
                <strong class="fig-label">Figure 1</strong>. 
-The framework of generating local importance maps.
+Main steps of the SP-DIR algorithm. The semantic meaning of the original image is: a boy kicks a ball on a pitch. Three semantic components
+including boy, ball, kick and pitch are extracted first. These are fused via a classification guided fusion network to generate a semantic collage, which is fed
+into the carrier to render the target image.
             </p>
          </div>
          <p style="text-align:center">
@@ -233,15 +237,11 @@ The framework of generating local importance maps.
          <div class="caption">
             <p class="caption-content">
                <strong class="fig-label">Figure 2</strong>. 
-The fusion network to synthesize global importance map.
+Classification guided fusion network. The inputs are the multiple semantic component maps and the output is the semantic collage. The classification
+ sub-network predicts the image as either scene or object oriented. The the regression sub-network fuses the semantic components maps
+ according to the classification results.
             </p>
         </div>
-        <p align="justify" style="text-indent:2em"> 
-		 	The fused importance map, which captures the
-		 	context among local semantics and has higher weights
-			in the pixels corresponding to the global semantics, is fed
-			into any subsequent target image generation methods.
-		 </p>
 		<div class="line"></div>
       </div>
    </div>      
