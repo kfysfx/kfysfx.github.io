@@ -30,7 +30,7 @@
 					  <td width="20%" height="30" align='center'><a target="_blank">Zhen Wei<sup>1</sup></a></td>
 					  <td width="20%" height="30" align='center'><a target="_blank">Yao Sun<sup>1</sup></a></td>
 					  <td width="20%" height="30" align='center'><a target="_blank">Xinyu Ou<sup>1,2,3</sup></a></td>
-					  <td width="20%" height="30" align='center'><a target="_blank">Junyu Liu<sup>1</sup></a></td>
+					  <td width="20%" height="30" align='center'><a target="_blank">Junyu Lin<sup>1</sup></a></td>
 		            </tr>
 		        </table>
 		        <table>
@@ -85,28 +85,29 @@ Science and Technology, Hubei, P.R.China</td>
 		<div class="wrap">        	
 	    	<h2 id="subject">Abstract</h1>
             <p align="justify" style="text-indent:2em">
-				Image retargeting is applied to display any size of images via devices (e.g., cell phone, TV monitors) with
-possibly different resolutions. In order to fit the target resolution,
-certain less important pixels are distorted. Therefore,
-the key problem is to determine the importance of each
-pixel. All pixels’ importance scores form an importance map.
-Different from traditional methods which generate the importance
-map in a bottom-up manner such as estimating eye
-fixation, the proposed Semantic Preserving Retargeting
-(SPR) method generates the importance map
-based on a top-down criterion: the target image retains the
-semantic meaning embedded in the original image as much
-as possible. To this end, we first extract the semantic meaning
-conveyed in the original image using 5 state-of-the-art deep image understanding modules, including image, scene,
-action classification, object detection and image parsing. All
-the modules generate their own importance maps, where
-bigger values indicate more semantic meaning carried by the
-corresponding pixels. Extensive experiments are conducted
-on the benchmark RetargetMe (80 images) and our collected
-Semantic-Retarget dataset (1,080 images). Results from the
-Amazon Mechanical Turk show the significant advantage of
-our DIR methods over the state-of-the-art image retargeting
-methods.
+Image retargeting has been applied to display images 
+of any size via devices with various resolutions (e.g., cell 
+phone, TV monitors). To fit an image with the target resolution, 
+certain unimportant regions need to be deleted or distorted and 
+the key problem is to determine the importance of each pixel. 
+Existing methods predict pixel-wise importance in a bottom-up 
+manner via eye fixation estimation or saliency detection. 
+In contrast, the proposed algorithm estimates the pixel-wise 
+importance based on a top-down criterion where the target image 
+maintains the semantic meaning of the original image. To this 
+end, several semantic components corresponding to foreground 
+objects, action contexts, and background regions are extracted. 
+The semantic component maps are integrated by a classification 
+guided fusion network. Specifically, the deep network classifies 
+the original image as object or scene-oriented, and fuses the 
+semantic component maps according to classification results. The 
+network output, referred to as the semantic collage with the 
+same size as the original image, is then fed into any existing 
+optimization method to generate the target image. Extensive 
+experiments are carried out on the <I>RetargetMe</I> dataset and <I>S-Retarget</I> 
+database developed in this work. Experimental results 
+demonstrate the merits of the proposed algorithm over the state-of- 
+the-art image retargeting methods. 
             </p>
 			<div class="line"></div>
       </div>
@@ -122,26 +123,49 @@ methods.
 		<div class="wrap">        	
 	    	<h2 id="subject">The S-Retarget Dataset</h2>
 	    	<p align="justify" style="text-indent:2em"> 
-	    		To comprehensively evaluate different image retargeting methods, we
-	    		 build a dataset much larger than existing retarget datasets called Semantic-Retarget
-	    		 (S-Retarget) dataset with 1527 images. We manually selected images from existing datasets
-	    		 and search engines. Each image has an aspect ratio greater than 1 to better fit the
-	    		 retargeting problem.According to the contents, all images are divided into 6 categories,
-	    		  including single person, multiple people, single object, multiple objects, 
-	    		 indoor scene and outdoor scene.
+Several retargeting benchmark datasets have been developed
+including the <I>RetargetMe</I><sup>[1]</sup> dataset and the one collected
+by <I>Mansfield et al.</I><sup>[2]</sup>. However, these datasets contains only
+80 or 100 images. For comprehensive evaluation of image
+retargeting methods, we construct the Semantic-Retarget (<I>S-
+Retarget</I>) dataset which contains 1, 527 images.
 	    	</p>
-	    	<h3 id="subject">Annotation</h3>
+	    	<h3 id="subject">Image collection</h3>
 	    	<p align="justify" style="text-indent:2em"> 
-	    		To annotate the importance maps for each images, we asked 5 annotators firstly write down 
-	    		the semantic meaning of the image. Then the annotators rate all pixels according to the 
-	    		degrees of relevance to the global semantics with different values, i.e. 0 (not relevant)
-	    		, 0.5 (moderately relevant) and 1 (very relevant) are used here. The final importance map
-	    		 is obtained by averaging all annotations of each pixel.
+We select images from the Pascal VOC<sup>[3]</sup>,
+SUN<sup>[4]</sup>, and BSR<sup>[5]</sup> datasets. In addition, we collect
+images from Google and Bing search engines. Based on the
+contents, all images are divided into 6 categories including
+single person, multiple people, single as well as multiple
+objects, and indoor as well as outdoor scenes. The images
+in single person, multiple people, single object and multiple
+objects classes are object-oriented while other images are
+scene-oriented. The dataset is split into train/val/test subsets, containing 1, 237,
+145 and 145 images respectively. The distribution of the 6
+categories are almost the same in the three sets.
 	    	</p>
+	    	<h3 id="subject">Semantic collage</h3>
 	    	<p align="justify" style="text-indent:2em"> 
-	    		Comparing with existing salinecy datasets, images in S-Retarget dataset are not bound to 
-	    		contain dominantly large objects and ground truthes are <strong class="fig-label">annotations with weights</strong>
-	    		with more information, rather than binary masks.
+WWe ask 5 subjects to annotate the pixel
+relevance based on the semantics of an image. The labeling
+process has two stages. In the first stage, all annotators
+explicitly record the semantic meaning of the images. Several
+image captions are shown in Figure 1(d). In the second stage,
+the annotators rate all pixels according to the relevances to
+the image caption. To facilitate labeling, each image is oversegmented
+5 times using multiple over-segmentations methods
+including SLIC<sup>[6]</sup> 3 times and Quick Shift<sup>[7]</sup> 2 twice with
+different segmentation parameters, e.g., number of superpixels
+and compactness factors. Then each annotator assigns a value
+to each image segment where a higher score corresponds to
+high relevance. For ease of labeling, the relevance score can
+only take three values, i.e., 0 (irrelevant), 0.5 (moderately
+relevant) and 1 (high relevant). Figure 1(b) demonstrates the
+semantic collage marked by two annotators. Overall, the annotations
+from different persons are consistent. The relevance
+score of one pixel is obtained by averaging all relevance scores
+of the segments covering the pixel. Several examples of the
+ground truth maps are shown in Figure 1(c).
 	    	</p>
 	    	<p style="text-align:center">
          		<img src="images/SPR/annotation_extended.png" alt="" width="800" height="461" align="bottom" />
@@ -149,14 +173,19 @@ methods.
          	<div class="caption">
             	<p class="caption-content">
                		<strong class="fig-label">Figure 1</strong>. 
-						Some instances of annotation in S-Retarget dataset. a) The original image; b) Annotations 
-						from two annotators; c) Final annotation; d) Image description. Each captions under every images describe the 
-						identity of <strong class="fig-label">annotations with weights</strong> while 
-						<font color="red">red and bold</font> words stand for essentially salient objects 
-						and <font color="blue">blue and italic</font> words stand for less salient objects.
+Some examples of semantic collage in the S-Retarget dataset. a) original images; b) annotations from two annotators; c) ground truth annotations; d)
+image caption.
             	</p>
+		<p align="justify" style="text-indent:2em"> 
+The <I>S-Retarget</I> dataset can also be used as a semantic
+saliency dataset. Different with the saliency datasets, e.g.,
+MSRA-5000<sup>[8]</sup> or ECSSD<sup>[9]</sup>, which mainly contain
+dominant objects, the images in <I>S-Retarget</I> are quite diverse.
+Furthermore, as shown in Figure 1(c), the ground truth are
+labeled with soft rather than binary annotations. 
+		</p>
          	</div>
-	    	<h3 id="subject">Download [620MB]</h3>
+	    	<h3 id="subject">Dataset Download [620MB]</h3>
 	    	<p align="justify" style="text-indent:2em"> 
 	    		<a href="http://pan.baidu.com/s/1eSC9xLo" target="_blank">Baidu Yun</a> 
 		</p>
@@ -345,6 +374,15 @@ maps ( eDN, GC, oriIF, DNEF, RCC, fine-tuned MC, fine-tuned Mr-cnn, fine-tuned S
      	<div class="wrap">
          <h2 id="subject">References</h2>
          <ul class="ref-list" align="justify">
+	    <li class="ref-item">M. Rubinstein, D. Gutierrez, O. Sorkine, and A. Shamir, A comparative study of image retargeting, in ACM TOG, 2010. </li>
+	    <li class="ref-item">A. Mansfield, P. Gehler, L. Van Gool, and C. Rother, Visibility maps for improving seam carving, in ECCV Workshops, 2010. </li>
+	    <li class="ref-item">M. Everingham, L. Van Gool, C. K. Williams, J. Winn, and A. Zisserman, The pascal visual object classes (voc) challenge, in IJCV, 2010. </li>
+	    <li class="ref-item">J. Xiao, K. Ehinger, J. Hays, A. Torralba, and A. Oliva, Sun database: Exploring a large collection of scene categories, in IJCV, 2014. </li>
+	    <li class="ref-item">D. Martin, C. Fowlkes, D. Tal, and J. Malik, A database of human segmented natural images and its application to evaluating segmentation algorithms and measuring ecological statistics, in ICCV, 2001. </li>
+	    <li class="ref-item">R. Achanta, A. Shaji, K. Smith, A. Lucchi, P. Fua, and S. Susstrunk, Slic superpixels compared to state-of-the-art superpixel methods, in TPAMI, 2012. </li>
+	    <li class="ref-item">A. Vedaldi and S. Soatto, Quick shift and kernel methods for mode seeking, in ECCV, 2008. </li>
+	    <li class="ref-item">T. Liu, J. Sun, N.-N. Zheng, X. Tang, and H.-Y. Shum, Learning to detect a salient object, in CVPR, 2007. </li>
+	    <li class="ref-item">Q. Yan, L. Xu, J. Shi, and J. Jia, Hierarchical saliency detection, in CVPR, 2013. </li>
             <li class="ref-item">Z. Bylinskii, T. Judd, A. Borji, L. Itti, F. Durand, A. Oliva and A. Torralba. MIT Saliency Benchmark. <a href="http://saliency.mit.edu/">http://saliency.mit.edu/</a>.</li>
             <li class="ref-item">R. Michael, G. Diego, S. Olga and S. Ariel. A comparative study of image retargeting. In TOG, 2010.</li>
          </ul>
