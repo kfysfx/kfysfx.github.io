@@ -130,37 +130,15 @@ by <I>Mansfield et al.</I><sup>[2]</sup>. However, these datasets contains only
 retargeting methods, we construct the Semantic-Retarget (<I>S-
 Retarget</I>) dataset which contains 1, 527 images.
 	    	</p>
-	    	<h3 id="subject">Image collection</h3>
 	    	<p align="justify" style="text-indent:2em"> 
-We select images from the Pascal VOC<sup>[3]</sup>,
-SUN<sup>[4]</sup>, and BSR<sup>[5]</sup> datasets. In addition, we collect
-images from Google and Bing search engines. Based on the
+We select images from some existing datasets as well as some pictures from web search engines.
+Based on the
 contents, all images are divided into 6 categories including
 single person, multiple people, single as well as multiple
-objects, and indoor as well as outdoor scenes. The images
-in single person, multiple people, single object and multiple
-objects classes are object-oriented while other images are
-scene-oriented. The dataset is split into train/val/test subsets, containing 1, 237,
-145 and 145 images respectively. The distribution of the 6
-categories are almost the same in the three sets.
-	    	</p>
-	    	<h3 id="subject">Semantic collage</h3>
-	    	<p align="justify" style="text-indent:2em"> 
-We ask 5 subjects to annotate the pixel
-relevance based on the semantics of an image. The labeling
-process has two stages. In the first stage, all annotators
-explicitly record the semantic meaning of the images. Several
-image captions are shown in Figure 1(d). In the second stage,
-the annotators rate all pixels according to the relevances to
-the image caption. To facilitate labeling, each image is oversegmented
-5 times using multiple over-segmentations methods
-including SLIC<sup>[6]</sup> 3 times and Quick Shift<sup>[7]</sup> 2 twice with
-different segmentation parameters, e.g., number of superpixels
-and compactness factors. Then each annotator assigns a value
-to each image segment where a higher score corresponds to
-high relevance. For ease of labeling, the relevance score can
-only take three values, i.e., 0 (irrelevant), 0.5 (moderately
-relevant) and 1 (high relevant). Figure 1(b) demonstrates the
+objects, and indoor as well as outdoor scenes. 
+
+To give each images their semantic collages, we ask 5 subjects to annotate the pixel
+relevance score based on the semantics of an image.  Figure 1(b) demonstrates the
 semantic collage marked by two annotators. Overall, the annotations
 from different persons are consistent. The relevance
 score of one pixel is obtained by averaging all relevance scores
@@ -179,7 +157,7 @@ image caption.
 		<p align="justify" style="text-indent:2em"> 
 The <I>S-Retarget</I> dataset can also be used as a semantic
 saliency dataset. Different with the saliency datasets, e.g.,
-MSRA-5000<sup>[8]</sup> or ECSSD<sup>[9]</sup>, which mainly contain
+MSRA-5000<sup>[3]</sup> or ECSSD<sup>[4]</sup>, which mainly contain
 dominant objects, the images in <I>S-Retarget</I> are quite diverse.
 Furthermore, as shown in Figure 1(c), the ground truth are
 labeled with soft rather than binary annotations. 
@@ -256,7 +234,7 @@ Classification guided fusion network. The inputs are the multiple semantic compo
         	<p align="justify"  style="text-indent:2em">
 				We compare our importance maps with state-of-the-art saliency
 				generating methods under the four evaluation criteria of the MIT saliency
- 				benchmark<sup>[1]</sup> and the Mean Average Error (MAE). For EMD, KL, MAE, the lower
+ 				benchmark<sup>[5]</sup> and the Mean Average Error (MAE). For EMD, KL, MAE, the lower
  				 the better while for CC and SIM, the higher the better.
 			</p>
         	<p align="justify"  style="text-indent:2em">
@@ -377,11 +355,6 @@ maps ( eDN, GC, oriIF, DNEF, RCC, fine-tuned MC, fine-tuned Mr-cnn, fine-tuned S
          <ul class="ref-list" align="justify">
 	    <li class="ref-item">M. Rubinstein, D. Gutierrez, O. Sorkine, and A. Shamir, A comparative study of image retargeting, in ACM TOG, 2010. </li>
 	    <li class="ref-item">A. Mansfield, P. Gehler, L. Van Gool, and C. Rother, Visibility maps for improving seam carving, in ECCV Workshops, 2010. </li>
-	    <li class="ref-item">M. Everingham, L. Van Gool, C. K. Williams, J. Winn, and A. Zisserman, The pascal visual object classes (voc) challenge, in IJCV, 2010. </li>
-	    <li class="ref-item">J. Xiao, K. Ehinger, J. Hays, A. Torralba, and A. Oliva, Sun database: Exploring a large collection of scene categories, in IJCV, 2014. </li>
-	    <li class="ref-item">D. Martin, C. Fowlkes, D. Tal, and J. Malik, A database of human segmented natural images and its application to evaluating segmentation algorithms and measuring ecological statistics, in ICCV, 2001. </li>
-	    <li class="ref-item">R. Achanta, A. Shaji, K. Smith, A. Lucchi, P. Fua, and S. Susstrunk, Slic superpixels compared to state-of-the-art superpixel methods, in TPAMI, 2012. </li>
-	    <li class="ref-item">A. Vedaldi and S. Soatto, Quick shift and kernel methods for mode seeking, in ECCV, 2008. </li>
 	    <li class="ref-item">T. Liu, J. Sun, N.-N. Zheng, X. Tang, and H.-Y. Shum, Learning to detect a salient object, in CVPR, 2007. </li>
 	    <li class="ref-item">Q. Yan, L. Xu, J. Shi, and J. Jia, Hierarchical saliency detection, in CVPR, 2013. </li>
             <li class="ref-item">Z. Bylinskii, T. Judd, A. Borji, L. Itti, F. Durand, A. Oliva and A. Torralba. MIT Saliency Benchmark. <a href="http://saliency.mit.edu/">http://saliency.mit.edu/</a>.</li>
